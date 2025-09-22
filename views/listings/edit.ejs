@@ -30,12 +30,16 @@
       </div>
 
       <div class="mb-3">
-        <lable for="image" class="form-label">Upload New Image</lable>
-        <input
-          name="listing[image]"
-          type="file"
-          class="form-control"
+        Original Listing Image <br />
+        <img
+          src="<%= originalImageUrl %>"
+          style="width: 150px; height: 150px"
         />
+      </div>
+
+      <div class="mb-3">
+        <lable for="image" class="form-label">Upload New Image</lable>
+        <input name="listing[image]" type="file" class="form-control" />
       </div>
 
       <div class="row">
