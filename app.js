@@ -85,6 +85,10 @@ app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 
+app.get('/map', (req, res) => {
+    res.render('map');
+});
+
 
 app.use((req, res, next) => {
     next(new ExpressError(404, "Page Not Found!"));
@@ -95,6 +99,8 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render("error.ejs", { message });
     // res.status(statusCode).send(message);
 });
+
+
 
 app.listen(8080, () => {
     console.log("server is listening to port 8080")

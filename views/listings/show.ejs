@@ -35,10 +35,24 @@
     </form>
   </div>
   <% } %>
+  <!-- 📍 Map Section -->
+  <div class="col-8 offset-2 mb-4">
+    <h5>Location Map</h5>
+    <div id="map" class="rounded shadow-sm"></div>
+  </div>
+
+  <!-- 💅 Map Styling -->
+  <style>
+    #map {
+      height: 300px;
+      width: 100%;
+      border-radius: 10px;
+    }
+  </style>
 
   <div class="col-8 offset-3 mb-3">
-    <hr />
     <% if(currUser) { %>
+    <hr />
     <h4>Leave a Review</h4>
     <form
       action="/listings/<%= listing.id %>/reviews"
@@ -110,10 +124,9 @@
       <button class="btn btn-outline-dark">Submit</button>
     </form>
 
-    <% } %>
-
-    <p><b>All Reviews</b></p>
+    <% } %> <% if(listing.reviews.length >0 ) { %>
     <div class="row">
+      <p><b>All Reviews</b></p>
       <% for(review of listing.reviews) { %>
       <div class="card col-5 ms-3 mb-3">
         <div class="card-body">
@@ -135,5 +148,26 @@
       </div>
       <%}%>
     </div>
+    <% } %>
   </div>
 </div>
+<link
+  href="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css"
+  rel="stylesheet"
+/>
+<script src="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js"></script>
+<script>
+  const map = new maplibregl.Map({
+    container: "map",
+    style: "https://demotiles.maplibre.org/style.json",
+    center: [77.209, 28.6139], // New Delhi (random location)
+    zoom: 12,
+  });
+
+  map.addControl(new maplibregl.NavigationControl());
+
+  new maplibregl.Marker()
+    .setLngLat([77.209, 28.6139])
+    .setPopup(new maplibregl.Popup().setText("<%= listing.title %>"))
+    .addTo(map);
+</script>
